@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment # Deployment kommer att se till containers skapas 
+metadata:
+  name: stensax
+  labels:
+    app: stensax
+spec:
+  replicas: 3 #scale out!!!!
+  selector:
+    matchLabels:
+      app: stensax
+  template:
+    metadata:
+      labels:
+        app: stensax
+    spec:
+      containers:
+        - name: stensax
+          image: git.systementor.se/yacloud/stensax0424
+          ports:
+            - containerPort: 8080
+          env:
+            - name: RUNENVIRONMENT
+              value: Production
+      imagePullSecrets:
+      - name: gitsystementorregcred        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stensax-service
+  labels:
+    app: stensax
+spec:
+  type: ClusterIP # LoadBalancer skapar en extern IP-adress som kan nås från internet
+  ports:
+  - name: http
+    port: 80 # 443
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: stensax
+  sessionAffinity: None

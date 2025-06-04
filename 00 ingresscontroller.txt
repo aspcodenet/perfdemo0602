@@ -1,0 +1,43 @@
+1. Installera  HELM
+2. C:\Users\stefa\Downloads\helm-v3.18.2-windows-amd64\windows-amd64\helm.exe
+
+
+https://kubernetes.github.io/ingress-nginx/user-guide/monitoring/
+
+3. Börja med https://kubernetes.github.io/ingress-nginx/deploy/
+
+C:\Users\stefa\Downloads\helm-v3.18.2-windows-amd64\windows-amd64\helm upgrade --kubeconfig=perfdemo0603-kubeconfig.yaml --install ingress-nginx ingress-nginx   --repo https://kubernetes.github.io/ingress-nginx   --namespace ingress-nginx --create-namespace
+
+C:\Users\stefa\Downloads\helm-v3.18.2-windows-amd64\windows-amd64\helm upgrade --kubeconfig=perfdemo0603-kubeconfig.yaml ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --set controller.metrics.enabled=true --set-string controller.podAnnotations."prometheus\.io/scrape"="true" --set-string controller.podAnnotations."prometheus\.io/port"="10254"
+
+
+C:\Users\stefa\Downloads\helm-v3.18.2-windows-amd64\windows-amd64\helm --kubeconfig=perfdemo0603-kubeconfig.yaml get  values ingress-nginx  --namespace ingress-nginx
+
+
+4. Prometheus
+kubectl --kubeconfig=perfdemo0603-kubeconfig.yaml apply --kustomize github.com/kubernetes/ingress-nginx/deploy/prometheus/
+
+kubectl  --kubeconfig=perfdemo0603-kubeconfig.yaml get svc -n ingress-nginx
+
+5. kubectl --kubeconfig=perfdemo0603-kubeconfig.yaml get nodes -o wide
+
+Kontrollera Prometheus så den har ng
+172.234.116.90:31031
+
+
+6. Installera grafana
+kubectl --kubeconfig=perfdemo0603-kubeconfig.yaml apply --kustomize github.com/kubernetes/ingress-nginx/deploy/grafana/
+
+
+7. Surfa till grafana
+kubectl  --kubeconfig=perfdemo0603-kubeconfig.yaml get svc -n ingress-nginx
+
+8. install cadvisor
+kubectl  --kubeconfig=perfdemo0603-kubeconfig.yaml apply -k https://github.com/google/cadvisor//deploy/kubernetes/base
+cAdvisor runs as a DaemonSet and collects container information from each Node.
+
+8. Admin, Data sources, add Prometheus
+http://prometheus-server:9090
+
+9. New dashboard
+
