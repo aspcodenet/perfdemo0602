@@ -36,6 +36,9 @@ kubectl  --kubeconfig=perfdemo0603-kubeconfig.yaml get svc -n ingress-nginx
 kubectl  --kubeconfig=perfdemo0603-kubeconfig.yaml apply -k https://github.com/google/cadvisor//deploy/kubernetes/base
 cAdvisor runs as a DaemonSet and collects container information from each Node.
 
+GRAFANA
+172.234.116.90:30550
+
 8. Admin, Data sources, add Prometheus
 http://prometheus-server:9090
 
