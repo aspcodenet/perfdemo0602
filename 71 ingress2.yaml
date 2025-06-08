@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sites
+  name: sitesaspnet
   annotations:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-    - host: "stefan0605.mooo.com"
+    - host: "stefanaspnet0605.mooo.com"
       http:
         paths:
           - pathType: Prefix
             path: "/"
             backend:
               service:
-                name: goapiperf-service
+                name: aspnetapiperf-service
                 port:
                   number: 80

@@ -44,3 +44,8 @@ http://prometheus-server:9090
 
 9. New dashboard
 
+
+
+tester
+ C:\Users\stefa\Downloads\hey_windows_amd64.exe -n 200  http://stefan0605.mooo.com/players
+ 

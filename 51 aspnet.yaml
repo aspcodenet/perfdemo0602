@@ -1,41 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment # Deployment kommer att se till containers skapas 
 metadata:
-  name: goapiperf
+  name: aspnetapiperf
   labels:
-    app: goapiperf
+    app: aspnetapiperf
 spec:
   replicas: 1 #scale out!!!!
   selector:
     matchLabels:
-      app: goapiperf
+      app: aspnetapiperf
   template:
     metadata:
       labels:
-        app: goapiperf
+        app: aspnetapiperf
     spec:
       containers:
-        - name: goapiperf
-          image: git.systementor.se/yacloud/goapiperf
+        - name: aspnetapiperf
+          image: git.systementor.se/yacloud/aspnetperfapi
           ports:
             - containerPort: 8080
           env:
-            - name: GIN_MODE
-              value: release
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
           resources:
             requests:
               cpu: 10m
               memory: 16Mi
             limits:
               cpu: 20m
-              memory: 32Mi          
+              memory: 32Mi    
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: goapiperf-service
+  name: aspnetapiperf-service
   labels:
-    app: goapiperf
+    app: aspnetapiperf
 spec:
   type: ClusterIP # LoadBalancer skapar en extern IP-adress som kan nås från internet
   ports:
@@ -44,5 +44,5 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: goapiperf
+    app: aspnetapiperf
   sessionAffinity: None
