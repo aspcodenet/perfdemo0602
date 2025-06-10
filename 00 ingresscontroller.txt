@@ -1,4 +1,5 @@
 1. Installera  HELM
+
 2. C:\Users\stefa\Downloads\helm-v3.18.2-windows-amd64\windows-amd64\helm.exe
 
 
